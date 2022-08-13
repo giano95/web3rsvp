@@ -1,0 +1,24 @@
+{
+    "name": "@web3rsvp/thegraph",
+    "version": "1.0.0",
+    "author": "Marco Gianelli",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "codegen": "graph codegen",
+        "build": "graph build",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ giano95/web3rsvp",
+        "create-local": "graph create --node http://localhost:8020/ giano95/web3rsvp",
+        "remove-local": "graph remove --node http://localhost:8020/ giano95/web3rsvp",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 giano95/web3rsvp",
+        "test": "graph test"
+    },
+    "dependencies": {
+        "@graphprotocol/graph-cli": "0.33.0",
+        "@graphprotocol/graph-ts": "0.27.0",
+        "@protofire/subgraph-toolkit": "^0.1.2"
+    },
+    "devDependencies": {
+        "matchstick-as": "0.5.0"
+    }
+}

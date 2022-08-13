@@ -1,0 +1,42 @@
+type Event @entity {
+    # Equal to eventID
+    id: ID!
+    # The ones that we pass through the 'NewEventCreated' event
+    eventID: Bytes!
+    eventOwner: Bytes!
+    eventTimestamp: BigInt!
+    maxCapacity: BigInt!
+    deposit: BigInt!
+    paidOut: Boolean!
+    # Count of RSVPs and Attendes
+    totalRSVPs: BigInt!
+    totalConfirmedAttendees: BigInt!
+    # Metadata on ipfs
+    name: String
+    description: String
+    link: String
+    imageURL: String
+    # Derived fields
+    rsvps: [RSVP!] @derivedFrom(field: "event")
+    confirmedAttendees: [Confirmation!] @derivedFrom(field: "event")
+}
+
+type Account @entity {
+    id: ID!
+    totalRSVPs: BigInt!
+    totalAttendedEvents: BigInt!
+    rsvps: [RSVP!] @derivedFrom(field: "attendee")
+    attendedEvents: [Confirmation!] @derivedFrom(field: "attendee")
+}
+
+type RSVP @entity {
+    id: ID!
+    attendee: Account!
+    event: Event!
+}
+
+type Confirmation @entity {
+    id: ID!
+    attendee: Account!
+    event: Event!
+}
