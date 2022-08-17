@@ -1,14 +1,14 @@
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "./Navbar"
+import Footer from "./Footer"
 
 const Layout = ({ children }) => {
-  return (
-    <div className="font-serif flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </div>
-  );
-};
+    return (
+        <div className="font-serif flex flex-col min-h-screen bg-white dark:bg-[#202428]">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+        </div>
+    )
+}
 
-export default Layout;
+export default Layout

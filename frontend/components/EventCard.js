@@ -11,8 +11,8 @@ export default function EventCard({ id, name, eventTimestamp, imageURL }) {
             <div className="block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden relative group-hover:opacity-75">
                 {imageURL && <Image src={imageURL} alt="event image" layout="fill" />}
             </div>
-            <p className="mt-2 block text-sm text-gray-500">{formatTimestamp(eventTimestamp)}</p>
-            <p className="block text-base font-medium text-gray-900">{name}</p>
+            <p className="mt-2 block text-sm text-gray-500 dark:text-gray-400">{formatTimestamp(eventTimestamp)}</p>
+            <p className="block text-base font-medium text-gray-900 dark:text-white">{name}</p>
         </div>
     )
 }
