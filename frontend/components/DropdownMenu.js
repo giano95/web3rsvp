@@ -9,9 +9,9 @@ export default function DropdownMenu({ menuButtonName }) {
 
     return (
         <Menu as="div" className="relative inline-block text-left">
-            <div className="dark:text-[#202428] text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-[12px] rounded-md">
-                <Menu.Button>{menuButtonName}</Menu.Button>
-            </div>
+            <Menu.Button className="py-[12px] dark:text-[#202428] text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 rounded-md">
+                {menuButtonName}
+            </Menu.Button>
             <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"

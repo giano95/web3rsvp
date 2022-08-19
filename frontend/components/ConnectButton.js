@@ -66,15 +66,15 @@ export default function Connectbutton() {
                                         )}
                                         {chain.name}
                                     </button>
-                                    <button className="bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-sm font-medium rounded-md drop-shadow-lg hover:scale-105">
-                                        <a onClick={openAccountModal} className="px-4">
+                                    <div className="bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-sm font-medium rounded-md drop-shadow-lg hover:scale-105">
+                                        <button onClick={openAccountModal} className="px-4 py-[12px]">
                                             {account.displayName}
-                                        </a>
+                                        </button>
                                         {/* <a className="dark:text-[#202428] text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-[12px] rounded-md">
                                             <DropdownMenu menuButtonName={account.displayBalance} />
                                         </a> */}
                                         <DropdownMenu menuButtonName={account.displayBalance} />
-                                    </button>
+                                    </div>
                                 </div>
                             )
                         })()}

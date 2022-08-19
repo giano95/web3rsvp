@@ -288,13 +288,13 @@ export default function CreateEvent() {
                         <div className="pt-5">
                             <div className="flex justify-end">
                                 <Link href="/">
-                                    <a className="bg-gray-50 dark:bg-[#1A1B1F] text-gray-700 dark:text-gray-200 px-6 py-[10px] text-[15px] font-medium rounded-md ml-6 drop-shadow-lg hover:scale-105">
+                                    <a className="bg-gray-50 dark:bg-[#1A1B1F] text-gray-700 dark:text-gray-200 px-6 py-[10px] text-[15px] font-medium rounded-md ml-5 drop-shadow-lg hover:scale-105">
                                         Cancel
                                     </a>
                                 </Link>
                                 <button
                                     type="submit"
-                                    className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:text-[#202428] text-white px-6 py-[10px] text-[15px] font-medium rounded-md ml-6 drop-shadow-lg hover:scale-105"
+                                    className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:text-[#202428] text-white px-6 py-[10px] text-[15px] font-medium rounded-md ml-5 drop-shadow-lg hover:scale-105"
                                 >
                                     Create
                                 </button>

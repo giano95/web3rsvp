@@ -67,7 +67,7 @@ contract Web3RSVP {
         // look up event from our mapping
         CreateEvent storage myEvent = idToEvent[eventId];
 
-        // transfer deposit to our contract / require that they send in enough ETH to cover the deposit requirement of this specific event
+        // require that the sending value is exactly equal to the 'CreateEvent' deposit
         require(msg.value == myEvent.deposit, "NOT ENOUGH");
 
         // require that the event hasn't already happened (<eventTimestamp)
@@ -145,7 +145,7 @@ contract Web3RSVP {
 
     function withdrawUnclaimedDeposits(bytes32 eventId) external {
         // look up event
-        CreateEvent memory myEvent = idToEvent[eventId];
+        CreateEvent storage myEvent = idToEvent[eventId];
 
         // check that the paidOut boolean still equals false AKA the money hasn't already been paid out
         require(!myEvent.paidOut, "ALREADY PAID");

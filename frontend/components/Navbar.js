@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Navmenu from "./Navmenu"
 import { useAccount, useDisconnect } from "wagmi"
-import ThemesToggler from "./ThemesToggler"
 import Connectbutton from "./ConnectButton"
 import DarkmodeToggle from "./DarkModeToggle"
 
