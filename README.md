@@ -2,8 +2,8 @@
 
 <br/>
 <p align="center">
-<img src="./img/homepage_light.png" width="500" >
-<img src="./img/homepage_dark.png" width="500" >
+<img src="./img/homepage_light.png" width="400" >
+<img src="./img/homepage_dark.png" width="400" >
 </p>
 <br/>
 
@@ -53,7 +53,7 @@ yarn
 
 ## Deployment to the Hardhat net
 
-Try to Deploy and Test the contract on the Hardhat Network and see if everything go smooth without error.
+First go to the `backend` folder and Deploy, Test the contract on the Hardhat Network and see if everything go smooth without error.
 
 ```
 yarn hardhat deploy
@@ -97,7 +97,7 @@ If everything go smooth you should see the Hashes of the deployed contracts on t
 
 ## Setup
 
-First LogIn/SignUp into [thegraph](https://thegraph.com/hosted-service/dashboard) and click ont the Add Subgraph button and create two Subgraph with the following name:
+First go to the `thegraph` folder then LogIn/SignUp into [thegraph](https://thegraph.com/hosted-service/dashboard) and click ont the Add Subgraph button and create two Subgraph with the following name:
 
 -   `web3rsvp-rinkeby-2`: the one used to indexing and query data from the Rinkeby contract.
 -   `web3rsvp-mumbai-2`: the one used to indexing and query data from the Mumbai contract.
@@ -142,7 +142,7 @@ If everything go well you should be able to enter your subgraph, click the play 
 
 ## Setup local variables
 
-The first thing to do is setup the environment variables, you can add them to a `.env.local` file, similar to what you see in `.env.example.local`.
+First go to the `frontend` folder and the setup the environment variables, you can add them to a `.env.local` file, similar to what you see in `.env.example.local`.
 
 -   `WEB3STORAGE_TOKEN`: This is the API Token used to upload data into ipfs. You can get one [here](https://web3.storage/tokens/) after signing up.
 -   `NEXT_PUBLIC_POLYGON_MUMBAI_ALCHEMY_ID`: This is API Key of the Rinkeby app that you prevously created on [Alchemy](https://alchemy.com/?a=673c802981)
