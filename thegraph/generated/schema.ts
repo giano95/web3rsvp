@@ -51,74 +51,6 @@ export class Event extends Entity {
     this.set("eventID", Value.fromBytes(value));
   }
 
-  get name(): string | null {
-    let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set name(value: string | null) {
-    if (!value) {
-      this.unset("name");
-    } else {
-      this.set("name", Value.fromString(<string>value));
-    }
-  }
-
-  get description(): string | null {
-    let value = this.get("description");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set description(value: string | null) {
-    if (!value) {
-      this.unset("description");
-    } else {
-      this.set("description", Value.fromString(<string>value));
-    }
-  }
-
-  get link(): string | null {
-    let value = this.get("link");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set link(value: string | null) {
-    if (!value) {
-      this.unset("link");
-    } else {
-      this.set("link", Value.fromString(<string>value));
-    }
-  }
-
-  get imageURL(): string | null {
-    let value = this.get("imageURL");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set imageURL(value: string | null) {
-    if (!value) {
-      this.unset("imageURL");
-    } else {
-      this.set("imageURL", Value.fromString(<string>value));
-    }
-  }
-
   get eventOwner(): Bytes {
     let value = this.get("eventOwner");
     return value!.toBytes();
@@ -180,6 +112,91 @@ export class Event extends Entity {
 
   set totalConfirmedAttendees(value: BigInt) {
     this.set("totalConfirmedAttendees", Value.fromBigInt(value));
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (!value) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(<string>value));
+    }
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (!value) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(<string>value));
+    }
+  }
+
+  get link(): string | null {
+    let value = this.get("link");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set link(value: string | null) {
+    if (!value) {
+      this.unset("link");
+    } else {
+      this.set("link", Value.fromString(<string>value));
+    }
+  }
+
+  get chainId(): BigInt | null {
+    let value = this.get("chainId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set chainId(value: BigInt | null) {
+    if (!value) {
+      this.unset("chainId");
+    } else {
+      this.set("chainId", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get imageURL(): string | null {
+    let value = this.get("imageURL");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set imageURL(value: string | null) {
+    if (!value) {
+      this.unset("imageURL");
+    } else {
+      this.set("imageURL", Value.fromString(<string>value));
+    }
   }
 
   get rsvps(): Array<string> | null {

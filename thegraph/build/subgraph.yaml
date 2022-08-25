@@ -6,11 +6,11 @@ features:
 dataSources:
   - kind: ethereum
     name: Web3RSVP
-    network: mumbai
+    network: rinkeby
     source:
-      address: "0x2918516084EcF5e8003D65D27D34ebe475C58b3F"
       abi: Web3RSVP
-      startBlock: 27596893
+      address: "0x70A74E3Dd6CD861F3C2Cc4741185476c5d685521"
+      startBlock: 11256740
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -22,7 +22,7 @@ dataSources:
         - Confirmation
       abis:
         - name: Web3RSVP
-          file: Web3RSVP/abis/Web3RSVP.json
+          file: backend/deployments/polygonMumbai/Web3RSVP.json
       eventHandlers:
         - event: ConfirmedAttendee(bytes32,address)
           handler: handleConfirmedAttendee

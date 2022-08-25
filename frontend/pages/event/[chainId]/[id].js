@@ -2,19 +2,21 @@ import { useState, useEffect } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import { gql } from "@apollo/client"
-import client from "../../apollo-client"
+import client from "../../../apollo-client"
 import { ethers } from "ethers"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
-import { useAccount } from "wagmi"
-import connectContract from "../../utils/connectContract"
-import formatTimestamp from "../../utils/formatTimestamp"
-import Alert from "../../components/Alert"
+import { useAccount, useSwitchNetwork, useNetwork } from "wagmi"
+import connectContract from "../../../utils/connectContract"
+import formatTimestamp from "../../../utils/formatTimestamp"
+import Alert from "../../../components/Alert"
 import { EmojiHappyIcon, TicketIcon, UsersIcon, LinkIcon } from "@heroicons/react/outline"
 import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 function Event({ event }) {
     const { isConnected, address: accountAddress } = useAccount()
     const { openConnectModal } = useConnectModal()
+    const { chains, switchNetworkAsync } = useSwitchNetwork()
+    const { chain } = useNetwork()
     const [success, setSuccess] = useState(null)
     const [message, setMessage] = useState(null)
     const [loading, setLoading] = useState(null)
@@ -36,29 +38,42 @@ function Event({ event }) {
 
     // Call the createNewRSVP method from our contract, pass in the event id and the deposit amount (as the transaction value)
     const newRSVP = async () => {
-        try {
-            const rsvpContract = connectContract()
-            if (rsvpContract) {
-                const txn = await rsvpContract.createNewRSVP(event.id, {
-                    value: event.deposit,
-                    gasLimit: 300000,
-                })
-                setLoading(true)
-                console.log("Minting...", txn.hash)
+        console.log("newRSVP...")
 
-                await txn.wait()
-                console.log("Minted -- ", txn.hash)
-                setSuccess(true)
-                setLoading(false)
-                setMessage("Your RSVP has been created successfully.")
-            } else {
-                console.log("Error getting contract.")
+        if (chain) {
+            const targetChain = chains.filter((x) => x.id == event.chainId)[0]
+
+            // Switch network if the chain of the event is different from the current chain
+            if (event.chainId != chain.id && targetChain) {
+                await switchNetworkAsync(targetChain.id)
+                console.log("network switched")
             }
-        } catch (error) {
-            setSuccess(false)
-            setMessage("Error!")
-            setLoading(false)
-            console.log(error)
+
+            try {
+                const rsvpContract = await connectContract()
+
+                if (rsvpContract) {
+                    const txn = await rsvpContract.createNewRSVP(event.id, {
+                        value: event.deposit,
+                        gasLimit: 300000,
+                    })
+                    setLoading(true)
+                    console.log("Minting...", txn.hash)
+
+                    await txn.wait()
+                    console.log("Minted -- ", txn.hash)
+                    setSuccess(true)
+                    setLoading(false)
+                    setMessage("Your RSVP has been created successfully.")
+                } else {
+                    console.log("Error getting contract.")
+                }
+            } catch (error) {
+                setSuccess(false)
+                setMessage("Error!")
+                setLoading(false)
+                console.log(error)
+            }
         }
     }
 
@@ -124,7 +139,8 @@ function Event({ event }) {
                                             className="w-full bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-center py-3 rounded-md drop-shadow-lg hover:scale-105 mb-3 mt-2 focus:ring-2 focus:ring-indigo-500"
                                         >
                                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                                                RSVP for {ethers.utils.formatEther(event.deposit)} MATIC
+                                                RSVP for {ethers.utils.formatEther(event.deposit)}{" "}
+                                                {event.chainId == 4 ? "ETH" : "MATIC"}
                                             </span>
                                         </button>
                                     )
@@ -156,6 +172,12 @@ function Event({ event }) {
                                 <TicketIcon className="w-6 mr-2" />
                                 <span className="truncate">1 RSVP per wallet</span>
                             </div>
+                            <div className="flex item-center">
+                                <LinkIcon className="w-6 mr-2" />
+                                <span className="truncate">
+                                    Deployed on {event.chainId == 4 ? "Rinkeby" : "Mumbai"} chain
+                                </span>
+                            </div>
                             <div className="flex items-center">
                                 <EmojiHappyIcon className="w-10 mr-2" />
 
@@ -164,7 +186,13 @@ function Event({ event }) {
 
                                     <a
                                         className="truncate hover:underline"
-                                        href={`${process.env.NEXT_PUBLIC_TESTNET_EXPLORER_URL}address/${event.eventOwner}`}
+                                        href={
+                                            (event.chainId == 4
+                                                ? process.env.NEXT_PUBLIC_RINKEBY_ETHERSCAN_URL
+                                                : process.env.NEXT_PUBLIC_MUMBAI_POLYGONSCAN_URL) +
+                                            "address/" +
+                                            event.eventOwner
+                                        }
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -184,7 +212,7 @@ function Event({ event }) {
 export default Event
 
 export async function getServerSideProps(context) {
-    const { id } = context.params
+    const { id, chainId } = context.params
 
     const { data } = await client.query({
         query: gql`
@@ -195,6 +223,7 @@ export async function getServerSideProps(context) {
                     name
                     description
                     link
+                    chainId
                     eventOwner
                     eventTimestamp
                     maxCapacity
@@ -214,6 +243,8 @@ export async function getServerSideProps(context) {
         variables: {
             id: id,
         },
+        context: { isRinkeby: chainId == 4 },
+        fetchPolicy: "no-cache",
     })
 
     return {

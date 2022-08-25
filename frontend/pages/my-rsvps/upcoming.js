@@ -1,12 +1,12 @@
 import Dashboard from "../../components/Dashboard"
-import { useState } from "react"
-import { gql, useQuery } from "@apollo/client"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
-import { useAccount } from "wagmi"
+import { useState, useEffect } from "react"
+import { gql, useQuery, refet } from "@apollo/client"
+import { useAccount, useNetwork } from "wagmi"
 import EventCard from "../../components/EventCard"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 // gql query to fetch all of the rsvps for the user's account
-const MY_UPCOMING_RSVPS = gql`
+const MY_RSVPS = gql`
     query Account($id: String) {
         account(id: $id) {
             id
@@ -16,6 +16,7 @@ const MY_UPCOMING_RSVPS = gql`
                     name
                     eventTimestamp
                     imageURL
+                    chainId
                 }
             }
         }
@@ -24,12 +25,24 @@ const MY_UPCOMING_RSVPS = gql`
 
 export default function MyUpcomingRSVPs() {
     const { isConnected, address: accountAddress } = useAccount()
+    const { chain } = useNetwork()
+    const { openConnectModal } = useConnectModal()
 
     const id = isConnected ? accountAddress.toLowerCase() : ""
     const [currentTimestamp, setEventTimestamp] = useState(new Date().getTime())
-    const { loading, error, data } = useQuery(MY_UPCOMING_RSVPS, {
+    const { loading, error, data, refetch } = useQuery(MY_RSVPS, {
         variables: { id },
+        context: { isRinkeby: chain?.id == 4 },
     })
+
+    const upcomingRSVPs = data?.account?.rsvps.filter((rsvp) => rsvp.event.eventTimestamp > currentTimestamp)
+
+    useEffect(() => {
+        if (chain) {
+            console.log(chain.id)
+            refetch()
+        }
+    }, [chain])
 
     if (loading)
         return (
@@ -48,25 +61,24 @@ export default function MyUpcomingRSVPs() {
         <Dashboard page="rsvps" isUpcoming={true}>
             {isConnected ? (
                 <div>
-                    {data && !data.account && <p>No upcoming RSVPs found</p>}
-                    {data && data.account && (
+                    {!upcomingRSVPs && <p>No upcoming RSVPs found</p>}
+                    {upcomingRSVPs && (
                         <ul
                             role="list"
                             className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
                         >
-                            {data.account.rsvps.map(function (rsvp) {
-                                if (rsvp.event.eventTimestamp > currentTimestamp) {
-                                    return (
-                                        <li key={rsvp.event.id}>
-                                            <EventCard
-                                                id={rsvp.event.id}
-                                                name={rsvp.event.name}
-                                                eventTimestamp={rsvp.event.eventTimestamp}
-                                                imageURL={rsvp.event.imageURL}
-                                            />
-                                        </li>
-                                    )
-                                }
+                            {upcomingRSVPs.map(function (rsvp) {
+                                return (
+                                    <li key={rsvp.event.id}>
+                                        <EventCard
+                                            id={rsvp.event.id}
+                                            name={rsvp.event.name}
+                                            eventTimestamp={rsvp.event.eventTimestamp}
+                                            imageURL={rsvp.event.imageURL}
+                                            chainId={rsvp.event.chainId}
+                                        />
+                                    </li>
+                                )
                             })}
                         </ul>
                     )}
@@ -74,7 +86,14 @@ export default function MyUpcomingRSVPs() {
             ) : (
                 <div className="flex flex-col items-center py-8">
                     <p className="mb-4">Please connect your wallet to view your rsvps</p>
-                    <ConnectButton />
+                    <button
+                        onClick={openConnectModal}
+                        className="bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-center px-6 py-3 rounded-md drop-shadow-lg hover:scale-105 mb-3 mt-2 focus:ring-2 focus:ring-indigo-500"
+                    >
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                            Connect
+                        </span>
+                    </button>
                 </div>
             )}
         </Dashboard>

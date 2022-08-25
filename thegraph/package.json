@@ -6,8 +6,11 @@
     "private": true,
     "scripts": {
         "codegen": "graph codegen",
-        "build": "graph build",
-        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ giano95/web3rsvp",
+        "auth": "graph auth --product hosted-service f7a9cd9564154732897ec68bfb141c3e",
+        "build-rinkeby": "graph build --network rinkeby",
+        "build-mumbai": "graph build --network mumbai",
+        "deploy-rinkeby": "graph deploy --product hosted-service giano95/web3rsvp-rinkeby-2 --network rinkeby",
+        "deploy-mumbai": "graph deploy --product hosted-service giano95/web3rsvp-mumbai-2 --network mumbai",
         "create-local": "graph create --node http://localhost:8020/ giano95/web3rsvp",
         "remove-local": "graph remove --node http://localhost:8020/ giano95/web3rsvp",
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 giano95/web3rsvp",

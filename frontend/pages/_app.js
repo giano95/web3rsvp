@@ -17,8 +17,12 @@ import { ThemeProvider } from "next-themes"
 
 // RAINBOW_KIT: Configure the chains and generate the required connectors
 const { chains, provider } = configureChains(
-    [chain.polygonMumbai, chain.polygon],
-    [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }), publicProvider()]
+    [chain.polygonMumbai, chain.rinkeby],
+    [
+        alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_POLYGON_MUMBAI_ALCHEMY_ID }),
+        alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_RINKEBY_ALCHEMY_ID }),
+        publicProvider(),
+    ]
 )
 const { connectors } = getDefaultWallets({
     appName: "web3rsvp",

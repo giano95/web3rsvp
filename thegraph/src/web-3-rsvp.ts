@@ -43,20 +43,21 @@ export function handleNewEventCreated(event: NewEventCreated): void {
                 const name = value.get("name")
                 const description = value.get("description")
                 const link = value.get("link")
+                const chainId = value.get("chainId")
                 const imagePath = value.get("image")
 
                 if (name) {
                     newEvent.name = name.toString()
                 }
-
                 if (description) {
                     newEvent.description = description.toString()
                 }
-
                 if (link) {
                     newEvent.link = link.toString()
                 }
-
+                if (chainId) {
+                    newEvent.chainId = chainId.toBigInt()
+                }
                 if (imagePath) {
                     const imageURL = "https://ipfs.io/ipfs/" + event.params.eventDataCID + imagePath.toString()
                     newEvent.imageURL = imageURL

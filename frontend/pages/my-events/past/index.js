@@ -1,14 +1,14 @@
 import Dashboard from "../../../components/Dashboard"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { gql, useQuery } from "@apollo/client"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
-import { useAccount } from "wagmi"
+import { useAccount, useNetwork } from "wagmi"
 import EventCard from "../../../components/EventCard"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 const MY_PAST_EVENTS = gql`
     query Events($eventOwner: String, $currentTimestamp: String) {
-        events(where: { eventOwner: $eventOwner, eventTimestamp_lt: $currentTimestamp }) {
+        events(where: { eventOwner: $eventOwner, eventTimestamp_gt: $currentTimestamp }) {
             id
             eventID
             name
@@ -17,18 +17,29 @@ const MY_PAST_EVENTS = gql`
             maxCapacity
             totalRSVPs
             imageURL
+            chainId
         }
     }
 `
 
 export default function MyPastEvents() {
     const { isConnected, address: accountAddress } = useAccount()
+    const { chain } = useNetwork()
+    const { openConnectModal } = useConnectModal()
 
     const eventOwner = isConnected ? accountAddress.toLowerCase() : ""
     const [currentTimestamp, setEventTimestamp] = useState(new Date().getTime().toString())
-    const { loading, error, data } = useQuery(MY_PAST_EVENTS, {
+    const { loading, error, data, refetch } = useQuery(MY_PAST_EVENTS, {
         variables: { eventOwner, currentTimestamp },
+        context: { isRinkeby: chain?.id == 4 },
     })
+
+    useEffect(() => {
+        if (chain) {
+            console.log(chain.id)
+            refetch()
+        }
+    }, [chain])
 
     if (loading)
         return (
@@ -60,12 +71,15 @@ export default function MyPastEvents() {
                                         name={event.name}
                                         eventTimestamp={event.eventTimestamp}
                                         imageURL={event.imageURL}
+                                        chainId={event.chainId}
                                     />
-                                    <Link href={`/my-events/past/${event.id}`}>
-                                        <a className="text-indigo-800 text-sm truncate hover:underline">
-                                            Confirm attendees
-                                        </a>
-                                    </Link>
+                                    <div className="hover:mt-[2px]">
+                                        <Link href={`/my-events/past/${event.chainId}/${event.id}`}>
+                                            <a className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:px-[8px] hover:py-[0px] rounded-md hover:bg-clip-border dark:hover:text-[#202428] hover:text-white ">
+                                                Confirm attendees
+                                            </a>
+                                        </Link>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -74,7 +88,14 @@ export default function MyPastEvents() {
             ) : (
                 <div className="flex flex-col items-center py-8">
                     <p className="mb-4">Please connect your wallet to view your events</p>
-                    <ConnectButton />
+                    <button
+                        onClick={openConnectModal}
+                        className="bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-center px-6 py-3 rounded-md drop-shadow-lg hover:scale-105 mb-3 mt-2 focus:ring-2 focus:ring-indigo-500"
+                    >
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                            Connect
+                        </span>
+                    </button>
                 </div>
             )}
         </Dashboard>

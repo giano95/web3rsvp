@@ -15,6 +15,7 @@ type Event @entity {
     name: String
     description: String
     link: String
+    chainId: BigInt
     imageURL: String
     # Derived fields
     rsvps: [RSVP!] @derivedFrom(field: "event")

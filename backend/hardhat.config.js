@@ -11,7 +11,7 @@ module.exports = {
         hardhat: {
             chainId: 31337,
         },
-        mumbai: {
+        polygonMumbai: {
             chainId: 80001,
             url: process.env.MUMBAI_RPC_URL || "",
             accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
@@ -40,7 +40,7 @@ module.exports = {
     // Etherscan-verify
     etherscan: {
         apiKey: {
-            mumbai: process.env.POLYGONSCAN_API_KEY,
+            polygonMumbai: process.env.POLYGONSCAN_API_KEY,
             rinkeby: process.env.ETHERSCAN_API_KEY,
         },
     },

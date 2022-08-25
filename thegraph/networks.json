@@ -1,7 +1,14 @@
 {
-  "mumbai": {
-    "Web3RSVP": {
-      "address": "0x2918516084EcF5e8003D65D27D34ebe475C58b3F"
+    "mumbai": {
+        "Web3RSVP": {
+            "address": "0x85496d9027534acC6d08724Ecefa75DDafC76D5b",
+            "startBlock": 27750685
+        }
+    },
+    "rinkeby": {
+        "Web3RSVP": {
+            "address": "0x70A74E3Dd6CD861F3C2Cc4741185476c5d685521",
+            "startBlock": 11256740
+        }
     }
-  }
 }
