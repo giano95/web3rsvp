@@ -1,12 +1,12 @@
 const { ethers, network } = require("hardhat")
-const { UPDATE_FRONTEND } = require("../helper-hardhat-config")
 const fs = require("fs")
 const path = require("path")
+const { developmentChains } = require("../helper-hardhat-config")
 
 const OUTPUT_FILE = "./exportContracts.json"
 
 module.exports = async function () {
-    if (true) {
+    if (!developmentChains.includes(network.name)) {
         try {
             const files = fs.readdirSync("./contracts/")
             for await (const file of files) {

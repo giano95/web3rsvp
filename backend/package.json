@@ -6,7 +6,7 @@
     "private": true,
     "scripts": {
         "test": "hardhat run scripts/test.js",
-        "deploy": "hardhat run scripts/deploy.js --network mumbai"
+        "deploy": "hardhat run scripts/deploy.js --network polygonMumbai"
     },
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",

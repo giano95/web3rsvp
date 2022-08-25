@@ -1,35 +1,35 @@
 specVersion: 0.0.4
 schema:
-  file: ./schema.graphql
+    file: ./schema.graphql
 features:
-  - ipfsOnEthereumContracts
+    - ipfsOnEthereumContracts
 dataSources:
-  - kind: ethereum
-    name: Web3RSVP
-    network: rinkeby
-    source:
-      abi: Web3RSVP
-      address: "0x70A74E3Dd6CD861F3C2Cc4741185476c5d685521"
-      startBlock: 11256740
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Event
-        - Account
-        - RSVP
-        - Confirmation
-      abis:
-        - name: Web3RSVP
-          file: ../backend/deployments/polygonMumbai/Web3RSVP.json
-      eventHandlers:
-        - event: ConfirmedAttendee(bytes32,address)
-          handler: handleConfirmedAttendee
-        - event: DepositsPaidOut(bytes32)
-          handler: handleDepositsPaidOut
-        - event: NewEventCreated(bytes32,address,uint256,uint256,uint256,string)
-          handler: handleNewEventCreated
-        - event: NewRSVP(bytes32,address)
-          handler: handleNewRSVP
-      file: ./src/web-3-rsvp.ts
+    - kind: ethereum
+      name: Web3RSVP
+      network: rinkeby
+      source:
+          abi: Web3RSVP
+          address: "0x70A74E3Dd6CD861F3C2Cc4741185476c5d685521"
+          startBlock: 11256740
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          entities:
+              - Event
+              - Account
+              - RSVP
+              - Confirmation
+          abis:
+              - name: Web3RSVP
+                file: ./abis/Web3RSVP.json
+          eventHandlers:
+              - event: ConfirmedAttendee(bytes32,address)
+                handler: handleConfirmedAttendee
+              - event: DepositsPaidOut(bytes32)
+                handler: handleDepositsPaidOut
+              - event: NewEventCreated(bytes32,address,uint256,uint256,uint256,string)
+                handler: handleNewEventCreated
+              - event: NewRSVP(bytes32,address)
+                handler: handleNewRSVP
+          file: ./src/web-3-rsvp.ts

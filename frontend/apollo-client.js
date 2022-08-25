@@ -8,11 +8,6 @@ const mumbaiEndpoint = new HttpLink({
     uri: "https://api.thegraph.com/subgraphs/name/giano95/web3rsvp-mumbai-2",
 })
 
-// const client = new ApolloClient({
-//     uri: "https://api.thegraph.com/subgraphs/name/giano95/web3rsvp-rinkeby",
-//     cache: new InMemoryCache(),
-// })
-
 const directionalLink = new ApolloLink.split(
     (operation) => operation.getContext().isRinkeby, // condition
     rinkebyEndpoint, // if condition is true
