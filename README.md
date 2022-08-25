@@ -153,7 +153,7 @@ For easiness we are gonna also set the block's explorer urls:
 -   `NEXT_PUBLIC_MUMBAI_POLYGONSCAN_URL`: https://mumbai.polygonscan.com/
 -   `NEXT_PUBLIC_RINKEBY_ETHERSCAN_URL`: https://rinkeby.etherscan.io/
 
-The last step of the setup is gonna be replace the Endpoint of the subgraphs [previously](#the-graph) deployed. In the `apollo-client.js` file replace `<http-queries>` with yours:
+The last step of the setup is gonna be replace the Endpoint of the subgraphs we [previously](#the-graph) deployed. To do that replace the http queries with yours http queries in `apollo-client.js`.
 
 ```
 const rinkebyEndpoint = new HttpLink({
