@@ -7,7 +7,7 @@ export default function Landing({ children }) {
                 <title>web3rsvp</title>
                 <meta name="description" content="Find, join, and create virtual events with your web3 frens" />
             </Head>
-            <section className="pt-12 pb-6">
+            <section className="pt-12 pb-2 md:pb-6">
                 <div className="w-full md:w-8/12 text-left">
                     <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
                         <span>Discover what&apos;s happening in the </span>

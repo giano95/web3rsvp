@@ -14,7 +14,7 @@ export default function DarkmodeToggle({ className = "" }) {
     }
 
     return (
-        <div className={`${className}`}>
+        <div className={`${className} flex items-center justify-center`}>
             <button
                 onClick={toggleTheme}
                 className=" bg-gray-400 dark:bg-[#000000] relative inline-flex h-[26px] md:h-[30px] w-[48px] md:w-[56px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75"
