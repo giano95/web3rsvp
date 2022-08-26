@@ -1,11 +1,16 @@
+import { useAccount } from "wagmi"
+import DarkmodeToggle from "./DarkmodeToggle"
+
 export default function Footer() {
+    const { isConnected } = useAccount()
+
     return (
         <footer className="border-t-[1px] border-gray-200 dark:border-gray-700">
             <div className="max-w-screen-2xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
                 <div className="flex justify-center space-x-6 md:order-2">
                     <a
                         href="https://www.30daysofweb3.xyz/"
-                        className="text-base text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
+                        className="text-sm md:text-base text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
                     >
                         30 Days of Web3
                     </a>
@@ -32,9 +37,13 @@ export default function Footer() {
                             />
                         </svg>
                     </a>
+                    {/* If small show when connected */}
+                    {isConnected ? <DarkmodeToggle className="md:hidden" /> : <></>}
                 </div>
                 <div className="mt-8 md:mt-0 md:order-1">
-                    <p className="text-center text-base text-gray-400 dark:text-gray-500">&copy; 2022 web3rsvp</p>
+                    <p className="text-center text-sm md:text-base text-gray-400 dark:text-gray-500">
+                        &copy; 2022 web3rsvp
+                    </p>
                 </div>
             </div>
         </footer>

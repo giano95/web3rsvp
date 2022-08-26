@@ -22,7 +22,7 @@ export default function Connectbutton() {
                             if (!mounted || !account || !chain) {
                                 return (
                                     <button
-                                        className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:text-[#202428] text-white px-4 py-[10px] text-[15px] font-medium rounded-md mx-6 drop-shadow-lg hover:scale-105"
+                                        className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:text-[#202428] text-white px-4 py-[10px] text-sm lg:text-[15px] font-medium rounded-md drop-shadow-lg hover:scale-105"
                                         onClick={openConnectModal}
                                         type="button"
                                     >
@@ -38,12 +38,11 @@ export default function Connectbutton() {
                                 )
                             }
                             return (
-                                <div style={{ display: "flex", gap: 20 }}>
+                                <div className="flex gap-2 md:gap-5 h-[44px]">
                                     <button
                                         onClick={openChainModal}
-                                        style={{ display: "flex", alignItems: "center" }}
                                         type="button"
-                                        className=" bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white px-4 py-[9px] text-sm font-medium rounded-md drop-shadow-lg hover:scale-105"
+                                        className="flex items-center bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white px-3 md:px-4 py-[9px] text-xs md:text-sm font-normal md:font-medium rounded-md drop-shadow-lg hover:scale-105"
                                     >
                                         {chain.hasIcon && (
                                             <div
@@ -53,7 +52,6 @@ export default function Connectbutton() {
                                                     height: 24,
                                                     borderRadius: 999,
                                                     overflow: "hidden",
-                                                    marginRight: 10,
                                                 }}
                                             >
                                                 {chain.iconUrl && (
@@ -67,10 +65,10 @@ export default function Connectbutton() {
                                                 )}
                                             </div>
                                         )}
-                                        {chain.name}
+                                        <span className="hidden md:block md:ml-3">{chain.name}</span>
                                     </button>
-                                    <div className="bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-sm font-medium rounded-md drop-shadow-lg hover:scale-105">
-                                        <button onClick={openAccountModal} className="px-4 py-[12px]">
+                                    <div className="bg-gray-50 dark:bg-[#1A1B1F] text-black dark:text-white text-xs md:text-sm font-normal md:font-medium rounded-md drop-shadow-lg hover:scale-105">
+                                        <button onClick={openAccountModal} className="md:px-3 px-4 py-[12px]">
                                             {account.displayName}
                                         </button>
 

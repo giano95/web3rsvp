@@ -9,8 +9,8 @@ export default function DropdownMenu({ menuButtonName }) {
     const { theme, setTheme, resolvedTheme } = useTheme()
 
     return (
-        <Menu as="div" className="relative inline-block text-left">
-            <Menu.Button className="py-[12px] dark:text-[#202428] text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 rounded-md">
+        <Menu as="div" className="relative inline-block">
+            <Menu.Button className="px-3 md:px-4 py-[12px] dark:text-[#202428] text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-md">
                 {menuButtonName}
             </Menu.Button>
             <Transition
