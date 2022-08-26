@@ -3,7 +3,7 @@ import Link from "next/link"
 import Navmenu from "./Navmenu"
 import { useAccount, useDisconnect } from "wagmi"
 import Connectbutton from "./ConnectButton"
-import DarkmodeToggle from "./DarkModeToggle"
+import DarkmodeToggle from "./DarkmodeToggle"
 import connectContract from "../utils/connectContract"
 
 export default function Navbar() {
