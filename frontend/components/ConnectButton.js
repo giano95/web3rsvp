@@ -1,5 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import DropdownMenu from "./DropdownMenu"
+import Image from "next/image"
 
 export default function Connectbutton() {
     return (
@@ -56,10 +57,12 @@ export default function Connectbutton() {
                                                 }}
                                             >
                                                 {chain.iconUrl && (
-                                                    <img
-                                                        alt={chain.name ?? "Chain icon"}
+                                                    <Image
                                                         src={chain.iconUrl}
-                                                        style={{ width: 24, height: 24 }}
+                                                        alt={chain.name ?? "Chain icon"}
+                                                        layout="fixed"
+                                                        width={24}
+                                                        height={24}
                                                     />
                                                 )}
                                             </div>
@@ -70,9 +73,7 @@ export default function Connectbutton() {
                                         <button onClick={openAccountModal} className="px-4 py-[12px]">
                                             {account.displayName}
                                         </button>
-                                        {/* <a className="dark:text-[#202428] text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-[12px] rounded-md">
-                                            <DropdownMenu menuButtonName={account.displayBalance} />
-                                        </a> */}
+
                                         <DropdownMenu menuButtonName={account.displayBalance} />
                                     </div>
                                 </div>

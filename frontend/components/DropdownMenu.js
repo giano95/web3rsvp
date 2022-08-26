@@ -1,11 +1,12 @@
 import { Menu, Transition } from "@headlessui/react"
-import { Fragment, useEffect, useRef, useState } from "react"
+import { forwardRef, Fragment, useEffect, useRef, useState } from "react"
 import { ChevronDownIcon } from "@heroicons/react/solid"
 import { useAccount } from "wagmi"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 export default function DropdownMenu({ menuButtonName }) {
-    const { theme, setTheme } = useTheme()
+    const { theme, setTheme, resolvedTheme } = useTheme()
 
     return (
         <Menu as="div" className="relative inline-block text-left">
@@ -25,8 +26,8 @@ export default function DropdownMenu({ menuButtonName }) {
                     <div className="px-1 py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <a
-                                    href={`/my-rsvps/upcoming`}
+                                <MyLink
+                                    href="/my-rsvps/upcoming"
                                     className={`${
                                         active
                                             ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white dark:text-gray-900"
@@ -37,7 +38,7 @@ export default function DropdownMenu({ menuButtonName }) {
                                         <MyRSVPsActiveIcon
                                             className="mr-2 h-5 w-5"
                                             aria-hidden="true"
-                                            stroke={`${theme == "dark" ? "#1A1B1F" : "#ffffff"}`}
+                                            stroke={`${resolvedTheme == "dark" ? "#1A1B1F" : "#ffffff"}`}
                                         />
                                     ) : (
                                         <MyRSVPsInactiveIcon
@@ -47,12 +48,12 @@ export default function DropdownMenu({ menuButtonName }) {
                                         />
                                     )}
                                     My RSVPs
-                                </a>
+                                </MyLink>
                             )}
                         </Menu.Item>
                         <Menu.Item>
                             {({ active }) => (
-                                <a
+                                <MyLink
                                     href={`/my-events/upcoming`}
                                     className={`${
                                         active
@@ -64,7 +65,7 @@ export default function DropdownMenu({ menuButtonName }) {
                                         <MyEventsActiveIcon
                                             className="mr-2 h-5 w-5"
                                             aria-hidden="true"
-                                            stroke={`${theme == "dark" ? "#1A1B1F" : "#ffffff"}`}
+                                            stroke={`${resolvedTheme == "dark" ? "#1A1B1F" : "#ffffff"}`}
                                         />
                                     ) : (
                                         <MyEventsInactiveIcon
@@ -74,7 +75,7 @@ export default function DropdownMenu({ menuButtonName }) {
                                         />
                                     )}
                                     My Events
-                                </a>
+                                </MyLink>
                             )}
                         </Menu.Item>
                     </div>
@@ -82,7 +83,7 @@ export default function DropdownMenu({ menuButtonName }) {
                     <div className="px-1 py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <a
+                                <MyLink
                                     href="/create-event"
                                     className={`${
                                         active
@@ -94,7 +95,7 @@ export default function DropdownMenu({ menuButtonName }) {
                                         <AddEventActiveIcon
                                             className="mr-2 h-5 w-5 text-violet-400"
                                             aria-hidden="true"
-                                            stroke={`${theme == "dark" ? "#1A1B1F" : "#ffffff"}`}
+                                            stroke={`${resolvedTheme == "dark" ? "#1A1B1F" : "#ffffff"}`}
                                         />
                                     ) : (
                                         <AddEventInactiveIcon
@@ -104,7 +105,7 @@ export default function DropdownMenu({ menuButtonName }) {
                                         />
                                     )}
                                     Create Event
-                                </a>
+                                </MyLink>
                             )}
                         </Menu.Item>
                     </div>
@@ -113,6 +114,17 @@ export default function DropdownMenu({ menuButtonName }) {
         </Menu>
     )
 }
+
+const MyLink = forwardRef((props, ref) => {
+    let { href, active, resolvedTheme, children, ...rest } = props
+    return (
+        <Link href={href}>
+            <a ref={ref} {...rest}>
+                {children}
+            </a>
+        </Link>
+    )
+})
 
 function MyRSVPsInactiveIcon(props) {
     return (

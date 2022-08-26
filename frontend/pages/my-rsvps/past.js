@@ -42,6 +42,7 @@ export default function MyPastRSVPs() {
             console.log(chain.id)
             refetch()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chain])
 
     if (loading)
