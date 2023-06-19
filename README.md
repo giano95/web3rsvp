@@ -185,5 +185,5 @@ A special thanks to all the team of [30DaysofWeb3](https://www.30daysofweb3.xyz/
 
 Metamask Address: 0x81617079A419ab4562b29A92181402BdF389a1fA
 
-[![Marco Gianelli Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/ERC_721Holder)
-[![Marco Gianelli Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/marco_gianelli_ifbbbro/)
+[![Marco Gianelli Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/_giano95/)
+[![Marco Gianelli Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/_giano95/)
